@@ -7,57 +7,8 @@ env:
   PROJECT_PATH: ./
   
 jobs:
-  export-windows:
-    name: Windows Export
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-    # Automatically stores the tag name for later use
-      - name: get tag from version
-        id: tag_version
-        run: |
-            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
-      - name: export game
-        id: export
-        # Use latest version (see releases for all versions)
-        uses: firebelley/godot-export@v4.7.0
-        with:
-          # Defining all the required inputs
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_linux_headless_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_export_templates.tpz
-          relative_project_path: ./
-          archive_output: true
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: windows
-          path: ${{ steps.export.outputs.archive_directory }}
-
-  export-linux:
-    name: Linux Export
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-
-  export-web:
-    name: Web Export
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-
-  export-android:
-    name: Android Export
+  build:
+    name: Export
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -78,8 +29,25 @@ jobs:
           sed -i 's@keystore/debug_user=""@keystore/debug_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
           sed -i 's@keystore/debug_password=""@keystore/debug_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
           
-      - name: Setup
+      - name: Get tag from version
+        id: tag_version
         run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
-          
+            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: 📤 Export game
+        id: export
+        # Use latest version (see releases for all versions)
+        uses: firebelley/godot-export@v4.7.0
+        with:
+          # Defining all the required inputs
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_linux_headless_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_export_templates.tpz
+          relative_project_path: ./
+          archive_output: true
+
+      - name: ⬆ Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: ${{ steps.export.outputs.archive_directory }}
+
