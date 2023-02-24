@@ -1,0 +1,941 @@
+[gd_scene load_steps=86 format=2]
+
+[ext_resource path="res://images/mite/spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://images/fooliage/red-tree/image.png" type="Texture" id=2]
+[ext_resource path="res://images/morp/spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://images/objects/bones.png" type="Texture" id=4]
+[ext_resource path="res://cs/Player.cs" type="Script" id=5]
+[ext_resource path="res://cs/Immoveable.cs" type="Script" id=6]
+[ext_resource path="res://cs/Anchor.cs" type="Script" id=7]
+
+[sub_resource type="VisualShaderNodeTexture" id=90]
+texture = ExtResource( 3 )
+
+[sub_resource type="VisualShader" id=91]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALPHA = n_out2p1;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -155.772, 97.1796 )
+nodes/fragment/0/position = Vector2( 360, 80 )
+nodes/fragment/2/node = SubResource( 90 )
+nodes/fragment/2/position = Vector2( 40, 100 )
+nodes/fragment/connections = PoolIntArray( 2, 1, 0, 1, 2, 0, 0, 5 )
+
+[sub_resource type="ShaderMaterial" id=92]
+render_priority = 1
+shader = SubResource( 91 )
+
+[sub_resource type="AtlasTexture" id=58]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=59]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=60]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=61]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=62]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=63]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=64]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=65]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=66]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 128, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=67]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 192, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=68]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 256, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=69]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 320, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=70]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=71]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=72]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 128, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=73]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 192, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=74]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 256, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=75]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 320, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=76]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=77]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=78]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 128, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=79]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 192, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=80]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 256, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=81]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 320, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=82]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=83]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=84]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 128, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=85]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 192, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=86]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 256, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=87]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 320, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=88]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 0, 320, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=89]
+flags = 3
+atlas = ExtResource( 3 )
+region = Rect2( 64, 320, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[sub_resource type="BoxShape" id=127]
+extents = Vector3( 2.4053, 0.0198515, 1.89445 )
+
+[sub_resource type="PlaneMesh" id=128]
+
+[sub_resource type="Gradient" id=129]
+offsets = PoolRealArray( 0, 0.949749, 0.98995, 1 )
+colors = PoolColorArray( 0.292725, 0, 0.425781, 1, 0.514068, 0.088274, 0.105565, 1, 0.523438, 0.0920105, 0.0920105, 1, 0.550781, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=130]
+gradient = SubResource( 129 )
+
+[sub_resource type="VisualShaderNodeTexture" id=131]
+texture = SubResource( 130 )
+
+[sub_resource type="VisualShader" id=132]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALPHA = n_out2p1;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -84.9591, 126.398 )
+nodes/fragment/2/node = SubResource( 131 )
+nodes/fragment/2/position = Vector2( 100, 160 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=133]
+shader = SubResource( 132 )
+
+[sub_resource type="BoxShape" id=141]
+
+[sub_resource type="Gradient" id=135]
+colors = PoolColorArray( 0.617188, 0, 0, 1, 0.523438, 0, 0.478455, 1 )
+
+[sub_resource type="GradientTexture2D" id=136]
+gradient = SubResource( 135 )
+
+[sub_resource type="VisualShaderNodeTexture" id=137]
+texture = SubResource( 136 )
+
+[sub_resource type="VisualShader" id=138]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -324.12, 162.457 )
+nodes/fragment/2/node = SubResource( 137 )
+nodes/fragment/2/position = Vector2( 40, 120 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5 )
+
+[sub_resource type="ShaderMaterial" id=139]
+shader = SubResource( 138 )
+
+[sub_resource type="CubeMesh" id=140]
+material = SubResource( 139 )
+
+[sub_resource type="VisualShaderNodeTexture" id=93]
+texture = ExtResource( 2 )
+
+[sub_resource type="VisualShader" id=94]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALPHA = n_out2p1;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -284.737, 89.94 )
+nodes/fragment/0/position = Vector2( 280, 80 )
+nodes/fragment/2/node = SubResource( 93 )
+nodes/fragment/2/position = Vector2( -140, 140 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=95]
+render_priority = 1
+shader = SubResource( 94 )
+
+[sub_resource type="CylinderShape" id=124]
+height = 2.07101
+
+[sub_resource type="VisualShaderNodeTexture" id=142]
+texture = ExtResource( 4 )
+
+[sub_resource type="VisualShader" id=143]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALPHA = n_out2p1;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -580.129, 66.0658 )
+nodes/fragment/2/node = SubResource( 142 )
+nodes/fragment/2/position = Vector2( 120, 140 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=144]
+render_priority = 1
+shader = SubResource( 143 )
+
+[sub_resource type="BoxShape" id=145]
+
+[sub_resource type="BoxShape" id=134]
+
+[sub_resource type="VisualShaderNodeTexture" id=96]
+texture = ExtResource( 1 )
+
+[sub_resource type="VisualShader" id=97]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// Output:0
+	ALPHA = n_out2p1;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( 204.282, 79.9475 )
+nodes/fragment/0/position = Vector2( 700, 0 )
+nodes/fragment/2/node = SubResource( 96 )
+nodes/fragment/2/position = Vector2( 300, 120 )
+nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=98]
+render_priority = 1
+shader = SubResource( 97 )
+
+[sub_resource type="AtlasTexture" id=99]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=100]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=101]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=102]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=103]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=104]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=105]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 128, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=106]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 192, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=107]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=108]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=109]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 128, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=110]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 192, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=117]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 128, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=118]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 192, 256, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=119]
+animations = [ {
+"frames": [ SubResource( 99 ), SubResource( 100 ), SubResource( 101 ), SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 117 ), SubResource( 118 ) ],
+"loop": true,
+"name": "walking",
+"speed": 7.0
+} ]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
+
+[node name="RedForest1" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323114 )
+
+[node name="Morp" type="AnimatedSprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.327273, 0.273319, 0.191721 )
+autoplace_priority = 10
+material_override = SubResource( 92 )
+cast_shadow = 0
+frames = SubResource( 23 )
+frame = 16
+playing = true
+
+[node name="Room" type="CanvasLayer" parent="."]
+
+[node name="Floor" type="StaticBody" parent="Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323114 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Room/Floor"]
+shape = SubResource( 127 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Room/Floor"]
+transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, 0.0010875, 0 )
+mesh = SubResource( 128 )
+material = SubResource( 133 )
+
+[node name="Walls" type="StaticBody" parent="Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323114 )
+
+[node name="wall 1" type="CollisionShape" parent="Room/Walls"]
+transform = Transform( -0.00560343, 0, 0, 0, 118.73, 0, 0, 0, 1, -2.44116, 0, 0 )
+shape = SubResource( 127 )
+
+[node name="wall 2" type="CollisionShape" parent="Room/Walls"]
+transform = Transform( -0.00560343, 0, 0, 0, 118.73, 0, 0, 0, 1, 2.41428, 0, 0 )
+shape = SubResource( 127 )
+
+[node name="wall 3" type="CollisionShape" parent="Room/Walls"]
+transform = Transform( 1, 0, 0, 0, 112.17, 0, 0, 0, 0.0451076, 0, 0, -1.84904 )
+shape = SubResource( 127 )
+
+[node name="wall 4" type="CollisionShape" parent="Room/Walls"]
+transform = Transform( 1, 0, 0, 0, 112.17, 0, 0, 0, 0.0451076, 0, 0, 1.94377 )
+shape = SubResource( 127 )
+
+[node name="Block" type="StaticBody" parent="Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1347, 0.263992, -1.6118 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Room/Block"]
+transform = Transform( 0.295705, 0, 0, 0, 0.295705, 0, 0, 0, 0.295705, 0, 0, 0 )
+shape = SubResource( 141 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Room/Block"]
+transform = Transform( 0.275134, 0, 0, 0, 0.275134, 0, 0, 0, 0.275134, 0, 0, 0 )
+mesh = SubResource( 140 )
+
+[node name="Objects" type="CanvasLayer" parent="."]
+
+[node name="Tree2" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 2.09991, 0.730085, -1.62202 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree2"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree2"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree2"]
+transform = Transform( 0.957927, 0, 0, 0, 0.841408, 0, 0, 0, 1, 0, 0.325257, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree3" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 1.35536, 0.224248, -1.62202 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree3"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree3"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree3"]
+transform = Transform( 0.957927, 0, 0, 0, 0.825905, 0, 0, 0, 1, 0, 0.348837, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree4" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -2.03387, 0.199931, -1.58665 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree4"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree4"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree4"]
+transform = Transform( 0.957927, 0, 0, 0, 0.853812, 0, 0, 0, 1, 0, 0.37454, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree5" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.39356, 0.199931, -1.58665 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree5"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree5"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree5"]
+transform = Transform( 0.957927, 0, 0, 0, 0.843883, 0, 0, 0, 1, 0, 0.402029, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree6" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -0.0949016, 0.199931, 0.44737 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree6"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree6"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree6"]
+transform = Transform( 0.957245, 0, 0, 0, 0.78386, 0, 0, 0, 0.999288, 0, 0.360269, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree7" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -0.818293, 0.199931, -0.170915 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree7"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree7"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree7"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="BonesPile1" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.98322, 0.199931, -0.170915 )
+mass = 13.9837
+script = ExtResource( 6 )
+
+[node name="BonesPile" type="Sprite3D" parent="Objects/BonesPile1"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/BonesPile1"]
+transform = Transform( -4.2503, 0, 3.71573e-07, 0, 4.2503, 0, -3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BonesPile1"]
+transform = Transform( 0.528399, 0, 0, 0, 0.498527, 0, 0, 0, 0.346787, 0.124784, -0.116698, 0.122448 )
+shape = SubResource( 145 )
+
+[node name="BonesPile2" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 0.712557, 0.199931, -1.60082 )
+mass = 13.9837
+script = ExtResource( 6 )
+
+[node name="BonesPile" type="Sprite3D" parent="Objects/BonesPile2"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/BonesPile2"]
+transform = Transform( -4.2503, 0, 3.71573e-07, 0, 4.2503, 0, -3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BonesPile2"]
+transform = Transform( 0.528399, 0, 0, 0, 0.498527, 0, 0, 0, 0.346787, 0.124784, -0.116698, 0.122448 )
+shape = SubResource( 145 )
+
+[node name="Tree8" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.8323, 0.199931, 1.76193 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree8"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree8"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree8"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree9" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 1.85515, 0.199931, 1.76193 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree9"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree9"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree9"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree10" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.2025, 0.199931, 1.76193 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree10"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree10"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree10"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree11" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -0.600577, 0.199931, 1.76193 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree11"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree11"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree11"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree12" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 0.00861248, 0.199931, 1.76397 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree12"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree12"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree12"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree13" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 0.625111, 0.199931, 1.76397 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree13"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree13"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree13"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="Tree14" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 1.24418, 0.199931, 1.76397 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree14"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree14"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree14"]
+transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+shape = SubResource( 124 )
+
+[node name="BonesPile3" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -2.25936, 0.199931, 1.62038 )
+mass = 13.9837
+script = ExtResource( 6 )
+
+[node name="BonesPile" type="Sprite3D" parent="Objects/BonesPile3"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/BonesPile3"]
+transform = Transform( -4.2503, 0, 3.71573e-07, 0, 4.2503, 0, -3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 144 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/BonesPile3"]
+transform = Transform( 0.528399, 0, 0, 0, 0.498527, 0, 0, 0, 0.346787, 0.124784, -0.116698, 0.122448 )
+shape = SubResource( 145 )
+
+[node name="Tree" type="RigidBody" parent="Objects"]
+transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -0.0309856, 0.202937, -0.172575 )
+script = ExtResource( 6 )
+
+[node name="Tree" type="Sprite3D" parent="Objects/Tree"]
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="Backface" type="Sprite3D" parent="Objects/Tree"]
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+material_override = SubResource( 95 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Objects/Tree"]
+transform = Transform( 0.957927, 0, 0, 0, 0.879682, 0, 0, 0, 1, 0, 0.259389, 0 )
+shape = SubResource( 124 )
+
+[node name="Player" type="RigidBody" parent="."]
+transform = Transform( 0.999991, 0.0029772, -0.00312297, -0.00297558, 0.999995, 0.000524049, 0.00312451, -0.000514777, 0.999995, 1.23266, 0.617699, 1.07663 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Player"]
+transform = Transform( 0.161554, 0, 0, 0, 0.161554, 0, 0, 0, 0.161554, 0, 0, 0 )
+shape = SubResource( 134 )
+
+[node name="Anchor" type="Spatial" parent="Player"]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -0.0497833, -0.0627554, -0.0627096 )
+script = ExtResource( 7 )
+
+[node name="Camera" type="Camera" parent="Player/Anchor"]
+transform = Transform( 0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 2.92593, 1.04644, 2.97848 )
+current = true
+
+[node name="Mite" type="AnimatedSprite3D" parent="Player"]
+transform = Transform( 0.888945, 0, 0, 0, 0.888945, 0, 0, 0, 0.888945, 0, 0, 0 )
+material_override = SubResource( 98 )
+frames = SubResource( 119 )
+animation = "walking"
+frame = 7
+playing = true
+
+[node name="Backface" type="AnimatedSprite3D" parent="Player"]
+transform = Transform( -0.888945, 8.29914e-12, -7.72998e-08, -3.53907e-10, 0.888945, 0, 7.79983e-08, -1.16415e-10, -0.888945, -0.0193676, -0.0117028, 0.000527143 )
+material_override = SubResource( 98 )
+frames = SubResource( 119 )
+animation = "walking"
+frame = 7
+playing = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
