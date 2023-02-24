@@ -83,8 +83,8 @@ jobs:
           name: web
           path: build/web
 
-  export-mac:
-    name: Mac Export
+  export-android:
+    name: Android Export
     runs-on: ubuntu-20.04
     container:
       image: barichello/godot-ci:mono-3.5.1
@@ -97,13 +97,13 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
-      - name: Mac Build
+      - name: Android Build
         run: |
           mkdir -v -p build/mac
           cd $PROJECT_PATH
-          godot -v --export "Mac OSX" ../build/mac/$EXPORT_NAME.zip
+          godot -v --export "Android" ../build/android/$EXPORT_NAME.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: mac
-          path: build/mac
+          path: build/android
