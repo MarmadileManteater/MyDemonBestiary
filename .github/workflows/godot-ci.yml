@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Android
-          path: ./artifacts/Windows/Digital-Gardening.exe
+          path: ./artifacts/Windows
           
       - name: ⬆ Upload Android Artifact
         uses: actions/upload-artifact@v1
