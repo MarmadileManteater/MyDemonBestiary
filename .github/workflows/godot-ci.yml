@@ -25,7 +25,7 @@ jobs:
          gpg -d --passphrase '${{ secrets.DEBUG_KEYSTORE_PASSWORD }}' --batch godot.keystore.asc >> godot.keystore
       - name: Reference keystore in export_presets.cfg
         run: |
-          sed -i 's@keystore/debug=""@keystore/debug="$(pwd)/godot.keytore"@g' export_presets.cfg
+          sed -i 's@keystore/debug=""@keystore/debug="'$(pwd)'/godot.keytore"@g' export_presets.cfg
           sed -i 's@keystore/debug_user=""@keystore/debug_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
           sed -i 's@keystore/debug_password=""@keystore/debug_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
           cat export_presets.cfg
