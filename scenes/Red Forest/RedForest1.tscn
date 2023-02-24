@@ -462,7 +462,7 @@ autoplace_priority = 10
 cast_shadow = 0
 alpha_cut = 2
 frames = SubResource( 23 )
-frame = 30
+frame = 15
 playing = true
 
 [node name="Room" type="CanvasLayer" parent="."]
@@ -872,7 +872,6 @@ transform = Transform( 0.888945, 0, 0, 0, 0.888945, 0, 0, 0, 0.888945, 0, 0, 0 )
 material_override = SubResource( 98 )
 frames = SubResource( 119 )
 animation = "walking"
-frame = 11
 playing = true
 
 [node name="Backface" type="AnimatedSprite3D" parent="Player"]
@@ -880,7 +879,6 @@ transform = Transform( -0.888945, 8.29914e-12, -7.72998e-08, -3.53907e-10, 0.888
 material_override = SubResource( 98 )
 frames = SubResource( 119 )
 animation = "walking"
-frame = 11
 playing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
