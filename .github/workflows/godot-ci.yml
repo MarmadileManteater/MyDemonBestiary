@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: build/windows
+          path: build/
 
   export-linux:
     name: Linux Export
@@ -94,9 +94,6 @@ jobs:
         with:
           lfs: true
           
-      - name: 🚧 Setup Android SDK Tools
-        uses: android-actions/setup-android@v2.0.9
-        
       - name: 🦴 Fetch keystore from secrets
         run: |
          while read -r line;
@@ -117,7 +114,7 @@ jobs:
           
       - name: Android Build
         run: |
-          mkdir -v -p build/mac
+          mkdir -v -p build/android
           cd $PROJECT_PATH
           godot -v --export "Android" ../build/android/$EXPORT_NAME.zip
       - name: Upload Artifact
