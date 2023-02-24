@@ -3,107 +3,56 @@ on: push
 
 env:
   GODOT_VERSION: 3.5.1
-  EXPORT_NAME: test-project
+  EXPORT_NAME: my-demon-bestiary
   PROJECT_PATH: ./
   
 jobs:
-  export-windows:
-    name: Windows Export
+  build:
+    name: Export
     runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-3.5.1
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
           
-      - name: Windows Build
+      - name: 🦴 Fetch keystore from secrets
         run: |
-          mkdir -v -p build/windows
-          cd $PROJECT_PATH
-          godot -v --export "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
-      - name: Upload Artifact
+         while read -r line;
+         do
+           echo "${line}" >> godot.keystore.asc
+         done <<< '${{ secrets.DEBUG_KEYSTORE }}'
+         gpg -d --passphrase '${{ secrets.DEBUG_KEYSTORE_PASSWORD }}' --batch godot.keystore.asc >> godot.keystore
+      - name: Reference keystore in export_presets.cfg
+        run: |
+          sed -i 's@keystore/debug=""@keystore/debug="'$(pwd)'/godot.keytore"@g' export_presets.cfg
+          sed -i 's@keystore/debug_user=""@keystore/debug_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
+          sed -i 's@keystore/debug_password=""@keystore/debug_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
+          sed -i 's@keystore/release=""@keystore/release="'$(pwd)'/godot.keytore"@g' export_presets.cfg
+          sed -i 's@keystore/release_user=""@keystore/release_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
+          sed -i 's@keystore/release_password=""@keystore/release_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
+          cat export_presets.cfg
+          
+      - name: Get tag from version
+        id: tag_version
+        run: |
+            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: 📤 Export game
+        id: export
+        # Use latest version (see releases for all versions)
+        uses: firebelley/godot-export@v4.7.0
+        with:
+          # Defining all the required inputs
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_linux_headless_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_export_templates.tpz
+          relative_project_path: ./
+          archive_output: true
+          export_debug: true
+
+      - name: ⬆ Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: windows
-          path: build/windows
+          path: ${{ steps.export.outputs.archive_directory }}
 
-  export-linux:
-    name: Linux Export
-    runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-3.5.1
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
-      - name: Linux Build
-        run: |
-          mkdir -v -p build/linux
-          cd $PROJECT_PATH
-          godot -v --export "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: linux
-          path: build/linux
-
-  export-web:
-    name: Web Export
-    runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-3.5.1
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
-      - name: Web Build
-        run: |
-          mkdir -v -p build/web
-          cd $PROJECT_PATH
-          godot -v --export "HTML5" ../build/web/index.html
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: web
-          path: build/web
-
-  export-mac:
-    name: Mac Export
-    runs-on: ubuntu-20.04
-    container:
-      image: barichello/godot-ci:mono-3.5.1
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable.mono ~/.local/share/godot/templates/${GODOT_VERSION}.stable.mono
-      - name: Mac Build
-        run: |
-          mkdir -v -p build/mac
-          cd $PROJECT_PATH
-          godot -v --export "Mac OSX" ../build/mac/$EXPORT_NAME.zip
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: mac
-          path: build/mac
