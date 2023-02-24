@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           lfs: true
           
@@ -25,10 +25,10 @@ jobs:
          gpg -d --passphrase '${{ secrets.DEBUG_KEYSTORE_PASSWORD }}' --batch godot.keystore.asc >> godot.keystore
       - name: Reference keystore in export_presets.cfg
         run: |
-          sed -i 's@keystore/debug=""@keystore/debug="'$(pwd)'/godot.keytore"@g' export_presets.cfg
+          sed -i 's@keystore/debug=""@keystore/debug="'$(pwd)'/godot.keystore"@g' export_presets.cfg
           sed -i 's@keystore/debug_user=""@keystore/debug_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
           sed -i 's@keystore/debug_password=""@keystore/debug_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
-          sed -i 's@keystore/release=""@keystore/release="'$(pwd)'/godot.keytore"@g' export_presets.cfg
+          sed -i 's@keystore/release=""@keystore/release="'$(pwd)'/godot.keystore"@g' export_presets.cfg
           sed -i 's@keystore/release_user=""@keystore/release_user="${{ secrets.DEBUG_KEYSTORE_USER }}"@g' export_presets.cfg
           sed -i 's@keystore/release_password=""@keystore/release_password="${{ secrets.DEBUG_KEYSTORE_PASSWORD }}"@g' export_presets.cfg
           cat export_presets.cfg
@@ -49,10 +49,29 @@ jobs:
           relative_project_path: ./
           archive_output: true
           export_debug: true
-
-      - name: ⬆ Upload Artifact
+          
+      - name: 🤐 Unzip build artifacts
+        run: |
+          mkdir ./artifacts
+          unzip -qq ${{ steps.export.outputs.archive_directory }}/HTML5.zip -d ./artifacts/HTML5
+          unzip -qq '${{ steps.export.outputs.archive_directory }}/Windows Desktop.zip' -d ./artifacts/Windows/
+          unzip -qq ${{ steps.export.outputs.archive_directory }}/Android.zip -d ./artifacts/Android/
+          
+      - name: ⬆ Upload HTML5 Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: windows
-          path: ${{ steps.export.outputs.archive_directory }}
+          name: HTML5
+          path: ./artifacts/HTML5
+          
+      - name: ⬆ Upload Windows Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Windows
+          path: ./artifacts/Windows
+          
+      - name: ⬆ Upload Android Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Android
+          path: ./artifacts/Android/Digital-Gardening.apk
 
