@@ -47,12 +47,31 @@ jobs:
           godot_executable_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_linux_headless_64.zip
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.5.1-stable/Godot_v3.5.1-stable_mono_export_templates.tpz
           relative_project_path: ./
-          archive_output: false
+          archive_output: true
           export_debug: true
-
-      - name: ⬆ Upload Artifact
+          
+      - name: 🤐 Unzip build artifacts
+        run: |
+          unzip -qq ${{ steps.export.outputs.archive_directory }} -d ./artifacts/
+          unzip -qq ./artifacts/HTML5.zip -d ./artifacts/HTML5
+          unzip -qq './artifacts/Windows Desktop.zip' -d ./artifacts/Windows/
+          unzip -qq ./artifacts/Android.zip -d ./artifacts/Android/
+          
+      - name: ⬆ Upload HTML5 Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: windows
-          path: ${{ steps.export.outputs.archive_directory }}
+          name: Android
+          path: ./artifacts/HTML5
+          
+      - name: ⬆ Upload Windows Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Android
+          path: ./artifacts/Windows/Digital-Gardening.exe
+          
+      - name: ⬆ Upload Android Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Android
+          path: ./artifacts/Android/Digital-Gardening.apk
 
