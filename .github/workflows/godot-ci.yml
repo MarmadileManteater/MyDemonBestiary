@@ -52,10 +52,10 @@ jobs:
           
       - name: 🤐 Unzip build artifacts
         run: |
-          unzip -qq ${{ steps.export.outputs.archive_directory }} -d ./artifacts/
-          unzip -qq ./artifacts/HTML5.zip -d ./artifacts/HTML5
-          unzip -qq './artifacts/Windows Desktop.zip' -d ./artifacts/Windows/
-          unzip -qq ./artifacts/Android.zip -d ./artifacts/Android/
+          mkdir ./artifacts
+          unzip -qq ${{ steps.export.outputs.archive_directory }}/HTML5.zip -d ./artifacts/HTML5
+          unzip -qq '${{ steps.export.outputs.archive_directory }}/Windows Desktop.zip' -d ./artifacts/Windows/
+          unzip -qq ${{ steps.export.outputs.archive_directory }}/Android.zip -d ./artifacts/Android/
           
       - name: ⬆ Upload HTML5 Artifact
         uses: actions/upload-artifact@v1
