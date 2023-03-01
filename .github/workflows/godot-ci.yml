@@ -18,7 +18,7 @@ jobs:
 
       - name: 🍷 Setup WINE and rcedit 
         run: |
-          dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
+          sudo dpkg --add-architecture i386 && sudo apt-get update && sudo apt-get install -y wine-stable && sudo apt-get install -y wine32
           chown root:root -R ~
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
           mkdir -v -p ~/.local/share/rcedit
