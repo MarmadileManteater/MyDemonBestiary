@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/rpgchip07_the_shrine_of_mysteries.ogg-4fcbe1501055bfdb1a19e652b5a85f04.oggstr"
+
+[deps]
+
+source_file="res://audio/15_melodic_rpg_chiptunes/rpgchip07_the_shrine_of_mysteries.ogg"
+dest_files=[ "res://.import/rpgchip07_the_shrine_of_mysteries.ogg-4fcbe1501055bfdb1a19e652b5a85f04.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
