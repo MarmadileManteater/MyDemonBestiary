@@ -15,6 +15,17 @@ jobs:
         uses: actions/checkout@v3
         with:
           lfs: true
+
+      - name: 🍷 Setup WINE and rcedit 
+        run: |
+          dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
+          chown root:root -R ~
+          wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+          mkdir -v -p ~/.local/share/rcedit
+          mv rcedit-x64.exe ~/.local/share/rcedit
+          godot -q
+          echo 'export/windows/wine = "/usr/bin/wine"' >> ~/.config/godot/editor_settings-3.tres
+          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ~/.config/godot/editor_settings-3.tres
           
       - name: 🦴 Fetch keystore from secrets
         run: |
@@ -23,6 +34,7 @@ jobs:
            echo "${line}" >> godot.keystore.asc
          done <<< '${{ secrets.DEBUG_KEYSTORE }}'
          gpg -d --passphrase '${{ secrets.DEBUG_KEYSTORE_PASSWORD }}' --batch godot.keystore.asc >> godot.keystore
+      
       - name: Reference keystore in export_presets.cfg
         run: |
           sed -i 's@keystore/debug=""@keystore/debug="'$(pwd)'/godot.keystore"@g' export_presets.cfg
