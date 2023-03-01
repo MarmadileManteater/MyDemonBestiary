@@ -379,7 +379,7 @@ autoplace_priority = 10
 cast_shadow = 0
 alpha_cut = 2
 frames = SubResource( 23 )
-frame = 30
+frame = 8
 playing = true
 
 [node name="Room" type="CanvasLayer" parent="."]
@@ -391,7 +391,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323
 shape = SubResource( 127 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Room/Floor"]
-transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, -0.0259109, 0 )
+transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, 0.026564, 0 )
 mesh = SubResource( 128 )
 material = SubResource( 133 )
 
@@ -415,7 +415,7 @@ transform = Transform( 1, 0, 0, 0, 112.17, 0, 0, 0, 0.0451076, 0, 0, 1.94377 )
 shape = SubResource( 127 )
 
 [node name="Block" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12395, 0.261368, -1.63206 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12395, 0.313843, -1.63206 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Room/Block"]
 transform = Transform( 0.295705, 0, 0, 0, 0.295705, 0, 0, 0, 0.295705, 0, 0, 0 )
@@ -821,7 +821,7 @@ double_sided = false
 alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 12
+frame = 7
 playing = true
 
 [node name="Backface" type="AnimatedSprite3D" parent="Player"]
@@ -830,7 +830,7 @@ double_sided = false
 alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 12
+frame = 7
 playing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
