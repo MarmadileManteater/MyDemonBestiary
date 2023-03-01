@@ -22,7 +22,7 @@ jobs:
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
           mkdir -v -p ~/.local/share/rcedit
           mv rcedit-x64.exe ~/.local/share/rcedit
-          sed -i 's@export_path="output/windows/Digital-Gardening.exe"@export_path="output/windows/Digital-Gardening.exe"\nexport/windows/wine = "/usr/bin/wine"\nexport/windows/rcedit = "~/.local/share/rcedit/rcedit-x64.exe"@g ./export_presets.cfg
+          sed -i 's@export_path="output/windows/Digital-Gardening.exe"@export_path="output/windows/Digital-Gardening.exe"\nexport/windows/wine = "/usr/bin/wine"\nexport/windows/rcedit = "~/.local/share/rcedit/rcedit-x64.exe"@g' ./export_presets.cfg
           cat export_presets.cfg
           
       - name: 🦴 Fetch keystore from secrets
