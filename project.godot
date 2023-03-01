@@ -16,12 +16,12 @@ config/icon="res://images/mite/image.png"
 
 [display]
 
-window/size/width=800
-window/size/height=1200
-window/size/resizable=false
-window/handheld/orientation="portrait"
-window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
+window/size/width=1920
+window/size/height=1080
+
+[global]
+
+window=false
 
 [gui]
 
