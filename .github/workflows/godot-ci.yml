@@ -19,7 +19,6 @@ jobs:
       - name: 🍷 Setup WINE and rcedit 
         run: |
           sudo apt-get install wine
-          wine -v
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
           mkdir -v -p ~/.local/share/rcedit
           mv rcedit-x64.exe ~/.local/share/rcedit
