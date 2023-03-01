@@ -20,6 +20,9 @@ jobs:
         id: wine_install
         run: |
           sudo apt-get install wine
+          wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+          mkdir -v -p ~/.local/share/rcedit
+          mv rcedit-x64.exe ~/.local/share/rcedit
           echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
           
       - name: 🦴 Fetch keystore from secrets
