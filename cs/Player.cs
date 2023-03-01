@@ -3,7 +3,7 @@ using System;
 
 public class Player : RigidBody
 {
-	private float forceMultiplier = 0.1f;
+	private float forceMultiplier = 0.4f;
 	private float jumpForce = 4f;
 	private float maxSpeed = 1.5f;
 	private float right = 0.0f;
@@ -13,7 +13,6 @@ public class Player : RigidBody
 	private bool jump = false;
 	private Anchor _cameraAnchor;
 	private AnimatedSprite3D[] _faces;
-
 	public override void _Ready()
 	{
 		ContactMonitor = true;
@@ -22,6 +21,17 @@ public class Player : RigidBody
 			GetNode<AnimatedSprite3D>("Mite"),
 			GetNode<AnimatedSprite3D>("Backface")
 		};
+	}
+
+	public override void _Process(float delta)
+	{
+		if (Transform.origin.y < -5)
+		{
+			// death
+			GD.Print("Death occured need to reset state");
+			GetTree().ReloadCurrentScene();
+		}
+
 	}
 
 	public override void _PhysicsProcess(float delta)

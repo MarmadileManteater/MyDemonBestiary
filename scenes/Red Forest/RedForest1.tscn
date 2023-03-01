@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://images/mite/spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://images/foliage/red-tree/image.png" type="Texture" id=2]
@@ -287,93 +287,7 @@ height = 2.07101
 
 [sub_resource type="BoxShape" id=145]
 
-[sub_resource type="VisualShaderNodeTexture" id=93]
-texture = ExtResource( 2 )
-
-[sub_resource type="VisualShader" id=94]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform sampler2D tex_frg_2;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Texture:2
-	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
-	vec3 n_out2p0 = tex_frg_2_read.rgb;
-	float n_out2p1 = tex_frg_2_read.a;
-
-// Output:0
-	ALPHA = n_out2p1;
-	EMISSION = n_out2p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -284.737, 89.94 )
-nodes/fragment/0/position = Vector2( 280, 80 )
-nodes/fragment/2/node = SubResource( 93 )
-nodes/fragment/2/position = Vector2( -140, 140 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
-
-[sub_resource type="ShaderMaterial" id=95]
-render_priority = 1
-shader = SubResource( 94 )
-
 [sub_resource type="BoxShape" id=148]
-
-[sub_resource type="VisualShaderNodeTexture" id=96]
-texture = ExtResource( 1 )
-
-[sub_resource type="VisualShader" id=97]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform sampler2D tex_frg_2;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Texture:2
-	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
-	vec3 n_out2p0 = tex_frg_2_read.rgb;
-	float n_out2p1 = tex_frg_2_read.a;
-
-// Output:0
-	ALPHA = n_out2p1;
-	EMISSION = n_out2p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( 301.757, 189.099 )
-nodes/fragment/0/position = Vector2( 700, 0 )
-nodes/fragment/2/node = SubResource( 96 )
-nodes/fragment/2/position = Vector2( 300, 120 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
-
-[sub_resource type="ShaderMaterial" id=98]
-render_priority = 1
-shader = SubResource( 97 )
 
 [sub_resource type="AtlasTexture" id=99]
 flags = 1
@@ -465,7 +379,7 @@ autoplace_priority = 10
 cast_shadow = 0
 alpha_cut = 2
 frames = SubResource( 23 )
-frame = 28
+frame = 30
 playing = true
 
 [node name="Room" type="CanvasLayer" parent="."]
@@ -477,12 +391,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323
 shape = SubResource( 127 )
 
 [node name="CSGMesh" type="CSGMesh" parent="Room/Floor"]
-transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, 0.0010875, 0 )
+transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, -0.0259109, 0 )
 mesh = SubResource( 128 )
 material = SubResource( 133 )
 
 [node name="Walls" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323114 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025198, 0.0186534, -0.0405325 )
 
 [node name="wall 1" type="CollisionShape" parent="Room/Walls"]
 transform = Transform( -0.00560343, 0, 0, 0, 118.73, 0, 0, 0, 1, -2.44116, 0, 0 )
@@ -501,7 +415,7 @@ transform = Transform( 1, 0, 0, 0, 112.17, 0, 0, 0, 0.0451076, 0, 0, 1.94377 )
 shape = SubResource( 127 )
 
 [node name="Block" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.135, 0.3, -1.612 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12395, 0.261368, -1.63206 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Room/Block"]
 transform = Transform( 0.295705, 0, 0, 0, 0.295705, 0, 0, 0, 0.295705, 0, 0, 0 )
@@ -511,15 +425,27 @@ shape = SubResource( 141 )
 transform = Transform( 0.275134, 0, 0, 0, 0.275134, 0, 0, 0, 0.275134, 0, 0, 0 )
 mesh = SubResource( 140 )
 
-[node name="StaticBody" type="StaticBody" parent="Room"]
+[node name="Platform 1" type="StaticBody" parent="Room"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.71691, -0.230849, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Room/StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Room/Platform 1"]
 transform = Transform( 1, 0, 0, 0, 0.0170546, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 149 )
 
-[node name="CSGMesh" type="CSGMesh" parent="Room/StaticBody"]
-transform = Transform( 1.02173, 0, 0, 0, 0.446375, 0, 0, 0, 0.998686, 0, 0, 0 )
+[node name="CSGMesh" type="CSGMesh" parent="Room/Platform 1"]
+transform = Transform( 1.02173, 0, 0, 0, 0.446375, 0, 0, 0, 0.998686, 0, -0.0468347, 0 )
+mesh = SubResource( 128 )
+material = SubResource( 133 )
+
+[node name="Platform 2" type="StaticBody" parent="Room"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.71691, 1.43457, -2.03045 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Room/Platform 2"]
+transform = Transform( 1, 0, 0, 0, 0.0170546, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 149 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Room/Platform 2"]
+transform = Transform( 1.02173, 0, 0, 0, 0.446375, 0, 0, 0, 0.998686, 0, -0.0310912, 0 )
 mesh = SubResource( 128 )
 material = SubResource( 133 )
 
@@ -699,7 +625,8 @@ texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree8"]
 transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
-material_override = SubResource( 95 )
+double_sided = false
+alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree8"]
@@ -778,7 +705,8 @@ texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree12"]
 transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
-material_override = SubResource( 95 )
+double_sided = false
+alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree12"]
@@ -791,7 +719,6 @@ script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree13"]
 transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
-material_override = SubResource( 95 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
@@ -818,7 +745,8 @@ texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree14"]
 transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
-material_override = SubResource( 95 )
+double_sided = false
+alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree14"]
@@ -867,7 +795,7 @@ transform = Transform( 0.957927, 0, 0, 0, 0.879682, 0, 0, 0, 1, 0, 0.259389, 0 )
 shape = SubResource( 124 )
 
 [node name="Player" type="RigidBody" parent="."]
-transform = Transform( 0.999991, 0.0029772, -0.00312297, -0.00297558, 0.999995, 0.000524049, 0.00312451, -0.000514777, 0.999995, 1.23266, 0.617699, 1.07663 )
+transform = Transform( 0.999991, 0.0029772, -0.00312297, -0.00297558, 0.999995, 0.000524049, 0.00312451, -0.000514777, 0.999995, 1.23495, 0.620021, 1.07578 )
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -882,25 +810,27 @@ script = ExtResource( 7 )
 transform = Transform( 0.707106, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707106, 2.92593, 1.04644, 2.97848 )
 current = true
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Player/Anchor/Camera"]
+[node name="BGM" type="AudioStreamPlayer3D" parent="Player/Anchor/Camera"]
 transform = Transform( 0.999991, -0.00297558, 0.00312448, 0.0029772, 0.999995, -0.000514777, -0.00312293, 0.000524074, 0.999995, -0.101816, 34.2171, 0.0179324 )
 stream = ExtResource( 8 )
 autoplay = true
 
 [node name="Mite" type="AnimatedSprite3D" parent="Player"]
 transform = Transform( 0.888945, 0, 0, 0, 0.888945, 0, 0, 0, 0.888945, 0, 0, 0 )
-material_override = SubResource( 98 )
+double_sided = false
+alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 1
+frame = 12
 playing = true
 
 [node name="Backface" type="AnimatedSprite3D" parent="Player"]
-transform = Transform( -0.888945, 8.29914e-12, -7.72998e-08, -3.53907e-10, 0.888945, 0, 7.79983e-08, -1.16415e-10, -0.888945, -0.0193676, -0.0117028, 0.000527143 )
-material_override = SubResource( 98 )
+transform = Transform( -0.888945, 8.07177e-12, -7.70669e-08, -5.86851e-10, 0.888945, 0, 7.79983e-08, -1.74623e-10, -0.888945, -0.0193676, -0.0117028, 0.000527143 )
+double_sided = false
+alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 1
+frame = 12
 playing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
