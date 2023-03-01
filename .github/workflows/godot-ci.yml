@@ -23,7 +23,8 @@ jobs:
           mkdir -v -p ~/.local/share/rcedit
           mv rcedit-x64.exe ~/.local/share/rcedit
           echo 'export/windows/wine = "/usr/bin/wine"' >> ./editor_presets.cfg
-          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ./editor_presets.cfg
+          echo 'export/windows/rcedit = "~/.local/share/rcedit/rcedit-x64.exe"' >> ./editor_presets.cfg
+          cat export_presets.cfg
           
       - name: 🦴 Fetch keystore from secrets
         run: |
