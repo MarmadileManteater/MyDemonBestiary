@@ -4,13 +4,14 @@ using System;
 public class Player : RigidBody
 {
 	private float forceMultiplier = 0.4f;
-	private float jumpForce = 4f;
+	private float jumpForce = 9f;
 	private float maxSpeed = 1.5f;
 	private float right = 0.0f;
 	private float left = 0.0f;
 	private float up = 0.0f; 
 	private float down = 0.0f;
 	private bool jump = false;
+	private bool lockJump = false;
 	private Anchor _cameraAnchor;
 	private AnimatedSprite3D[] _faces;
 	public override void _Ready()
@@ -99,7 +100,14 @@ public class Player : RigidBody
 		}
 		if (@event.IsAction("ui_accept"))
 		{
-			jump = @event.GetActionStrength("ui_accept") == 1;
+			jump = @event.GetActionStrength("ui_accept") == 1 && !lockJump;
+			// lock jump until action is released to prevent holding the button
+			if (@event.IsActionReleased("ui_accept")) {
+				lockJump = false;
+			} else {
+				lockJump = true;
+			}
+
 		}
 	}
 }
