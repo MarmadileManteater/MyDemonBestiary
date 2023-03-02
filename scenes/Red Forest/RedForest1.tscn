@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://images/mite/spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://images/foliage/red-tree/image.png" type="Texture" id=2]
@@ -180,54 +180,11 @@ animations = [ {
 [sub_resource type="BoxShape" id=127]
 extents = Vector3( 2.4053, 0.0198515, 1.89445 )
 
-[sub_resource type="PlaneMesh" id=128]
+[sub_resource type="Gradient" id=183]
+colors = PoolColorArray( 0.492188, 0, 0, 1, 0.359375, 0.0168457, 0.345995, 1 )
 
-[sub_resource type="Gradient" id=129]
-offsets = PoolRealArray( 0, 0.949749, 0.98995, 1 )
-colors = PoolColorArray( 0.292725, 0, 0.425781, 1, 0.514068, 0.088274, 0.105565, 1, 0.523438, 0.0920105, 0.0920105, 1, 0.550781, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=130]
-gradient = SubResource( 129 )
-
-[sub_resource type="VisualShaderNodeTexture" id=131]
-texture = SubResource( 130 )
-
-[sub_resource type="VisualShader" id=132]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform sampler2D tex_frg_2;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Texture:2
-	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
-	vec3 n_out2p0 = tex_frg_2_read.rgb;
-	float n_out2p1 = tex_frg_2_read.a;
-
-// Output:0
-	ALPHA = n_out2p1;
-	EMISSION = n_out2p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-nodes/fragment/2/node = SubResource( 131 )
-nodes/fragment/2/position = Vector2( 100, 160 )
-nodes/fragment/connections = PoolIntArray( 2, 0, 0, 5, 2, 1, 0, 1 )
-
-[sub_resource type="ShaderMaterial" id=133]
-shader = SubResource( 132 )
+[sub_resource type="GradientTexture" id=184]
+gradient = SubResource( 183 )
 
 [sub_resource type="BoxShape" id=141]
 
@@ -379,7 +336,7 @@ autoplace_priority = 10
 cast_shadow = 0
 alpha_cut = 2
 frames = SubResource( 23 )
-frame = 8
+frame = 18
 playing = true
 
 [node name="Room" type="CanvasLayer" parent="."]
@@ -390,10 +347,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0206127, 0.0186535, -0.0323
 [node name="CollisionShape" type="CollisionShape" parent="Room/Floor"]
 shape = SubResource( 127 )
 
-[node name="CSGMesh" type="CSGMesh" parent="Room/Floor"]
-transform = Transform( 2.44421, 0, 0, 0, 1, 0, 0, 0, 1.87537, 0, 0.026564, 0 )
-mesh = SubResource( 128 )
-material = SubResource( 133 )
+[node name="Sprite3D" type="Sprite3D" parent="Room/Floor"]
+transform = Transform( 0.236516, 0, 0, 0, -9.56117e-06, 215.006, 0, -380.671, -1.6356e-05, 0.00364029, -0.00482063, 0.0200429 )
+flip_h = true
+alpha_cut = 2
+texture = SubResource( 184 )
 
 [node name="Walls" type="StaticBody" parent="Room"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025198, 0.0186534, -0.0405325 )
@@ -415,7 +373,7 @@ transform = Transform( 1, 0, 0, 0, 112.17, 0, 0, 0, 0.0451076, 0, 0, 1.94377 )
 shape = SubResource( 127 )
 
 [node name="Block" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12395, 0.313843, -1.63206 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.12395, 0.29245, -1.63206 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Room/Block"]
 transform = Transform( 0.295705, 0, 0, 0, 0.295705, 0, 0, 0, 0.295705, 0, 0, 0 )
@@ -426,16 +384,17 @@ transform = Transform( 0.275134, 0, 0, 0, 0.275134, 0, 0, 0, 0.275134, 0, 0, 0 )
 mesh = SubResource( 140 )
 
 [node name="Platform 1" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.71691, -0.230849, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75281, -0.230849, 0.590227 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Room/Platform 1"]
 transform = Transform( 1, 0, 0, 0, 0.0170546, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 149 )
 
-[node name="CSGMesh" type="CSGMesh" parent="Room/Platform 1"]
-transform = Transform( 1.02173, 0, 0, 0, 0.446375, 0, 0, 0, 0.998686, 0, -0.0468347, 0 )
-mesh = SubResource( 128 )
-material = SubResource( 133 )
+[node name="Sprite3D" type="Sprite3D" parent="Room/Platform 1"]
+transform = Transform( 0.0991802, 0, 0, 0, -4.00936e-06, 90.1601, 0, -202.996, -8.722e-06, 0, -0.0153629, 0 )
+flip_h = true
+alpha_cut = 2
+texture = SubResource( 184 )
 
 [node name="Platform 2" type="StaticBody" parent="Room"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.71691, 1.43457, -2.03045 )
@@ -444,10 +403,32 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.71691, 1.43457, -2.03045 )
 transform = Transform( 1, 0, 0, 0, 0.0170546, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 149 )
 
-[node name="CSGMesh" type="CSGMesh" parent="Room/Platform 2"]
-transform = Transform( 1.02173, 0, 0, 0, 0.446375, 0, 0, 0, 0.998686, 0, -0.0310912, 0 )
-mesh = SubResource( 128 )
-material = SubResource( 133 )
+[node name="Sprite3D" type="Sprite3D" parent="Room/Platform 2"]
+transform = Transform( 0.0991802, 0, 0, 0, -4.00936e-06, 90.1601, 0, -202.996, -8.722e-06, 0, -0.0153629, 0 )
+flip_h = true
+double_sided = false
+alpha_cut = 2
+texture = SubResource( 184 )
+
+[node name="Moving Platform" type="KinematicBody" parent="Room"]
+transform = Transform( 0.998673, 0, 0, 0, 0.656217, 0, 0, 0, 0.656217, -0.413243, 1.26433, -1.08293 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Room/Moving Platform"]
+transform = Transform( 1, 0, 0, 0, 0.0170546, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 149 )
+
+[node name="Sprite3D" type="Sprite3D" parent="Room/Moving Platform"]
+transform = Transform( 0.099312, 0, 0, 0, -6.10981e-06, 137.394, 0, -309.343, -1.32913e-05, 0, -0.0234113, 0 )
+flip_h = true
+double_sided = false
+alpha_cut = 2
+texture = SubResource( 184 )
+
+[node name="End Point" type="Spatial" parent="Room/Moving Platform"]
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0.186085, 0, 4.08623 )
+
+[node name="Platform 3" type="StaticBody" parent="Room"]
+transform = Transform( 0.998673, 0, 0, 0, 0.656217, 0, 0, 0, 0.656217, 6.41932, 0.409209, 0.338851 )
 
 [node name="Objects" type="CanvasLayer" parent="."]
 
@@ -618,19 +599,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.8323, 
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree8"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree8"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree8"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree9" type="RigidBody" parent="Objects"]
@@ -638,19 +619,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 1.85515, 
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree9"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree9"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree9"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree10" type="RigidBody" parent="Objects"]
@@ -658,19 +639,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -1.2025, 
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree10"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree10"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree10"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree11" type="RigidBody" parent="Objects"]
@@ -678,19 +659,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, -0.600577
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree11"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree11"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree11"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree12" type="RigidBody" parent="Objects"]
@@ -698,19 +679,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 0.0086124
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree12"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree12"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree12"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree13" type="RigidBody" parent="Objects"]
@@ -718,19 +699,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 0.625111,
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree13"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree13"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree13"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="Tree14" type="RigidBody" parent="Objects"]
@@ -738,19 +719,19 @@ transform = Transform( 0.235278, 0, 0, 0, 0.235278, 0, 0, 0, 0.235278, 1.24418, 
 script = ExtResource( 6 )
 
 [node name="Tree" type="Sprite3D" parent="Objects/Tree14"]
-transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( 4.2503, 0, 0, 0, 4.2503, 0, 0, 0, 4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="Backface" type="Sprite3D" parent="Objects/Tree14"]
-transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.57765, 0.106817 )
+transform = Transform( -4.2503, 0, -3.71573e-07, 0, 4.2503, 0, 3.71573e-07, 0, -4.2503, 0.140272, 0.48926, 0.106817 )
 double_sided = false
 alpha_cut = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Objects/Tree14"]
-transform = Transform( 0.957927, 0, 0, 0, 0.975349, 0, 0, 0, 1, 0, 0.279278, 0 )
+transform = Transform( 0.957927, 0, 0, 0, 0.91258, 0, 0, 0, 1, 0, 0.279278, 0 )
 shape = SubResource( 124 )
 
 [node name="BonesPile3" type="RigidBody" parent="Objects"]
@@ -795,7 +776,9 @@ transform = Transform( 0.957927, 0, 0, 0, 0.879682, 0, 0, 0, 1, 0, 0.259389, 0 )
 shape = SubResource( 124 )
 
 [node name="Player" type="RigidBody" parent="."]
-transform = Transform( 0.999991, 0.0029772, -0.00312297, -0.00297558, 0.999995, 0.000524049, 0.00312451, -0.000514777, 0.999995, 1.23495, 0.620021, 1.07578 )
+transform = Transform( 0.999991, 0.0029772, -0.00312297, -0.00297558, 0.999995, 0.000524049, 0.00312451, -0.000514777, 0.999995, -0.413065, 1.53587, -1.30698 )
+mass = 2.0
+contact_monitor = true
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -816,21 +799,19 @@ stream = ExtResource( 8 )
 autoplay = true
 
 [node name="Mite" type="AnimatedSprite3D" parent="Player"]
-transform = Transform( 0.888945, 0, 0, 0, 0.888945, 0, 0, 0, 0.888945, 0, 0, 0 )
+transform = Transform( 0.87373, 2.64095e-10, 2.32831e-10, 5.70594e-10, 0.87373, -3.7835e-10, -2.32831e-10, -5.82077e-10, 0.87373, -0.0101955, 0.00897086, 0.00860918 )
 double_sided = false
 alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 7
 playing = true
 
 [node name="Backface" type="AnimatedSprite3D" parent="Player"]
-transform = Transform( -0.888945, 8.07177e-12, -7.70669e-08, -5.86851e-10, 0.888945, 0, 7.79983e-08, -1.74623e-10, -0.888945, -0.0193676, -0.0117028, 0.000527143 )
+transform = Transform( -0.87373, 2.63526e-10, -7.59028e-08, -2.47269e-09, 0.87373, 2.91038e-10, 7.68341e-08, -7.85803e-10, -0.87373, -0.0292316, -0.00253093, 0.0091275 )
 double_sided = false
 alpha_cut = 2
 frames = SubResource( 119 )
 animation = "walking"
-frame = 7
 playing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
