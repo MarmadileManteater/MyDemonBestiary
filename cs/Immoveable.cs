@@ -16,6 +16,6 @@ public class Immoveable : RigidBody
 		base._IntegrateForces(state);
 		Translation = _initialPosition;
 		// Discard rotation around any other access than Y
-		Rotation = new Vector3(0, Rotation.y, 0);
+		Rotation = new Vector3(0, 0, 0);
     }
 }
