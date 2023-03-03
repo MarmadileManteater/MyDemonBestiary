@@ -64,7 +64,12 @@ jobs:
           unzip -qq ${{ steps.export.outputs.archive_directory }}/HTML5.zip -d ./artifacts/HTML5
           unzip -qq '${{ steps.export.outputs.archive_directory }}/Windows Desktop.zip' -d ./artifacts/Windows/
           unzip -qq ${{ steps.export.outputs.archive_directory }}/Android.zip -d ./artifacts/Android/
-          
+      
+      - name: 🚚 Move license info into output directories
+        run: |
+          cp LICENSE ./artifacts/*/
+          cp GODOT_LICENSE.txt ./artifacts/*/
+
       - name: ⬆ Upload HTML5 Artifact
         uses: actions/upload-artifact@v1
         with:
