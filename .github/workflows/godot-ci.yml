@@ -3,7 +3,7 @@ on: push
 
 env:
   GODOT_VERSION: 3.5.1
-  EXPORT_NAME: my-demon-bestiary
+  EXPORT_NAME: MyDemonBestiary
   PROJECT_PATH: ./
   
 jobs:
@@ -74,18 +74,18 @@ jobs:
       - name: ⬆ Upload HTML5 Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: HTML5
+          name: ${{ env.EXPORT_NAME }}-HTML5
           path: ./artifacts/HTML5
           
       - name: ⬆ Upload Windows Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: Windows
+          name: ${{ env.EXPORT_NAME }}-Windows
           path: ./artifacts/Windows
           
       - name: ⬆ Upload Android Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: Android
+          name: ${{ env.EXPORT_NAME }}-Android
           path: ./artifacts/Android/Digital-Gardening.apk
 
