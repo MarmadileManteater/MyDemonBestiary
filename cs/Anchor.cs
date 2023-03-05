@@ -8,7 +8,7 @@ using System;
 public class Anchor : Spatial
 {
 	private float rotationSpeedMultiplier = 0.01f;
-	public float localRotation = 0.0f;
+	public float localRotation = -1.5f;
 
 	public override void _Process(float delta)
 	{
