@@ -18,6 +18,8 @@ This project contains assests which were obtained from [OpenGameArt.org](https:/
 
 **License(s):** CC0 ( [https://creativecommons.org/publicdomain/zero/1.0/](https://creativecommons.org/publicdomain/zero/1.0/) )
 
+----
+
 **Title:** [Onscreen controls (8 styles)](https://opengameart.org/content/onscreen-controls-8-styles)
 
 **Author:** [Kenney.nl](https://www.kenney.nl)
