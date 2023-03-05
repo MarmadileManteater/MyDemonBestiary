@@ -17,7 +17,6 @@ namespace DigitalGardening
 		private bool lockJump = false;
 		private Anchor _cameraAnchor;
 		private AnimatedSprite3D[] _faces;
-		private Contact[] Collisions = new Contact[0];
 		private bool CanJump()
 		{
 			// If there is at least one colliding body below us
@@ -85,16 +84,6 @@ namespace DigitalGardening
 
 		public override void _IntegrateForces(PhysicsDirectBodyState state)
 		{
-			Collisions = new Contact[state.GetContactCount()];
-			for (var i = 0; i < state.GetContactCount(); i++)
-			{
-				Collisions[i] = new Contact
-				{
-					CollisionObject = state.GetContactColliderObject(i),
-					CollisionPosition = state.GetContactColliderPosition(i),
-					LocalPosition = state.GetContactLocalPosition(i)
-				};
-			}
 			base._IntegrateForces(state);
 			Rotation = Vector3.Zero;
 			var newVelocity = new Vector3(LinearVelocity);

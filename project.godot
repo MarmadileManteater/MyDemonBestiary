@@ -22,6 +22,7 @@ window/size/height=1080
 [global]
 
 window=false
+emulate=false
 
 [gui]
 
@@ -77,6 +78,10 @@ click_left={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
+}
+camera_controls={
+"deadzone": 0.5,
+"events": [  ]
 }
 
 [mono]

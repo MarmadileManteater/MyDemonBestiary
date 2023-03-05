@@ -9,6 +9,23 @@ public class Anchor : Spatial
 {
 	private float rotationSpeedMultiplier = 0.01f;
 	public float localRotation = -1.5f;
+    private CanvasLayer _touchControls;
+    private bool useTouch
+	{
+		get
+		{
+			return _touchControls.Visible;
+		}
+		set
+		{
+			_touchControls.Visible = value;
+		}
+	}
+
+	public override void _Ready()
+	{
+		_touchControls = GetNode<CanvasLayer>("TouchControls");
+	}
 
 	public override void _Process(float delta)
 	{
@@ -25,14 +42,16 @@ public class Anchor : Spatial
 				localRotation += eventMouseMotion.Relative.x * rotationSpeedMultiplier;
 			}
 		}
-		if (@event is InputEventScreenDrag inputEventScreenDrag)
+		if (@event is InputEventScreenTouch && !useTouch)
 		{
-			localRotation += inputEventScreenDrag.Relative.x * rotationSpeedMultiplier;
+			useTouch = true;
 		}
-		if (@event.IsActionPressed("ui_left"))
+		if (Input.IsActionPressed("camera_controls"))
 		{
-			
-			GD.Print("left");
+			if (@event is InputEventScreenDrag inputEventScreenDrag)
+			{
+				localRotation += inputEventScreenDrag.Relative.x * rotationSpeedMultiplier;
+			}
 		}
 	}
 }

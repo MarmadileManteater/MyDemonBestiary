@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://images/mobile-ui/shadedDark05.png" type="Texture" id=1]
+[ext_resource path="res://images/mobile-ui/shadedDark06.png" type="Texture" id=2]
+[ext_resource path="res://images/mobile-ui/shadedDark03.png" type="Texture" id=3]
+[ext_resource path="res://images/mobile-ui/shadedDark10.png" type="Texture" id=4]
+[ext_resource path="res://images/mobile-ui/shadedDark45.png" type="Texture" id=5]
+[ext_resource path="res://images/mobile-ui/shadedDark11.png" type="Texture" id=6]
+[ext_resource path="res://cs/AnchorToRightSideOfScreen.cs" type="Script" id=7]
+
+[node name="TouchControls" type="CanvasLayer"]
+
+[node name="Face Buttons" type="Node2D" parent="."]
+position = Vector2( 1278, 581 )
+scale = Vector2( 2.28651, 2.28651 )
+script = ExtResource( 7 )
+
+[node name="UI Accept" type="TouchScreenButton" parent="Face Buttons"]
+normal = ExtResource( 5 )
+action = "ui_accept"
+
+[node name="Camera Controls" type="TouchScreenButton" parent="Face Buttons"]
+position = Vector2( 89.1551, 9.52801 )
+normal = ExtResource( 6 )
+action = "camera_controls"
+
+[node name="D-Pad" type="Node2D" parent="."]
+position = Vector2( 302, 734 )
+scale = Vector2( 2.9387, 2.9387 )
+
+[node name="Up" type="TouchScreenButton" parent="D-Pad"]
+position = Vector2( -31, -85 )
+normal = ExtResource( 3 )
+passby_press = true
+action = "left_stick_up"
+
+[node name="Left" type="TouchScreenButton" parent="D-Pad"]
+position = Vector2( -85, -31 )
+normal = ExtResource( 1 )
+passby_press = true
+action = "left_stick_left"
+
+[node name="Right" type="TouchScreenButton" parent="D-Pad"]
+position = Vector2( 10, -31 )
+normal = ExtResource( 2 )
+passby_press = true
+action = "left_stick_right"
+
+[node name="Down" type="TouchScreenButton" parent="D-Pad"]
+position = Vector2( -31, 15 )
+normal = ExtResource( 4 )
+passby_press = true
+action = "left_stick_down"
