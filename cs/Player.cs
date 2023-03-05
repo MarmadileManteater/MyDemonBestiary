@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,16 +17,19 @@ namespace DigitalGardening
 		private bool lockJump = false;
 		private Anchor _cameraAnchor;
 		private AnimatedSprite3D[] _faces;
+		private Contact[] Collisions = new Contact[0];
 		private bool CanJump()
 		{
 			// If there is at least one colliding body below us
 			var canJump = false;
 			foreach (var collision in GetCollidingBodies())
 			{
-				// 🤷‍♀️ I give up trying to do a bunch of fancy maths to calculate this
-				// Just check if we are colliding against one thing that is not a wall
+				// I give up trying to do a bunch of fancy maths to calculate this
 				if ((collision as Spatial).Name != "Walls")
 					canJump = true;
+				else // keep a threshold to prevent wall jumping while still allowing jumps off of the tops of walls
+					canJump = Math.Abs(LinearVelocity.y) < 0.05;
+
 			}
 			return canJump;
 		}
@@ -82,6 +85,16 @@ namespace DigitalGardening
 
 		public override void _IntegrateForces(PhysicsDirectBodyState state)
 		{
+			Collisions = new Contact[state.GetContactCount()];
+			for (var i = 0; i < state.GetContactCount(); i++)
+			{
+				Collisions[i] = new Contact
+				{
+					CollisionObject = state.GetContactColliderObject(i),
+					CollisionPosition = state.GetContactColliderPosition(i),
+					LocalPosition = state.GetContactLocalPosition(i)
+				};
+			}
 			base._IntegrateForces(state);
 			Rotation = Vector3.Zero;
 			var newVelocity = new Vector3(LinearVelocity);
